@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AgencyDBModelStoreContainer" CdmEntityContainer="AgencyDBEntities">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="AgencyDBModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+          <ScalarProperty Name="Date_Of_Birth" ColumnName="Date_Of_Birth" />
+          <ScalarProperty Name="Language" ColumnName="Language" />
+          <ScalarProperty Name="Number_Of_Trips" ColumnName="Number_Of_Trips" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="AgencyDBModel.Ticket">
+        <MappingFragment StoreEntitySet="Ticket">
+          <ScalarProperty Name="Seat_Number" ColumnName="Seat_Number" />
+          <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+          <ScalarProperty Name="Trip_ID" ColumnName="Trip_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TourGuides">
+      <EntityTypeMapping TypeName="AgencyDBModel.TourGuide">
+        <MappingFragment StoreEntitySet="TourGuide">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+          <ScalarProperty Name="Date_Of_Birth" ColumnName="Date_Of_Birth" />
+          <ScalarProperty Name="Language1" ColumnName="Language1" />
+          <ScalarProperty Name="Language2" ColumnName="Language2" />
+          <ScalarProperty Name="Language3" ColumnName="Language3" />
+          <ScalarProperty Name="Number_Of_Trips" ColumnName="Number_Of_Trips" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trips">
+      <EntityTypeMapping TypeName="AgencyDBModel.Trip">
+        <MappingFragment StoreEntitySet="Trip">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+          <ScalarProperty Name="Number_Of_Seats" ColumnName="Number_Of_Seats" />
+          <ScalarProperty Name="Tour_Guide_ID" ColumnName="Tour_Guide_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

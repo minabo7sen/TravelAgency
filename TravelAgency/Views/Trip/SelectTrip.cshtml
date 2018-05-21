@@ -1,0 +1,286 @@
+﻿@model TravelAgency.Models.ViewModel.TripDataView
+@using TravelAgency.Models.DB
+@using TravelAgency.Models.ViewModel
+
+@{
+    ViewBag.Title = "Select Trip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>List of Trips</h1>
+
+    <table class="table table-striped table-condensed table-hover">
+        <thead class="thead-dark">
+            <tr>
+
+                <th class="text-center">Type</th>
+                <th class="text-center">Destination</th>
+                <th class="text-center">Start Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Available Tickets</th>
+                <th class="text-center">Tour Guide Name</th>
+
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.UserProfile)
+            {
+
+                <tr>
+                    @{
+                        int avai = i.Number_Of_Seats - i.Number_Of_Tickets;
+                    }
+                    <td class="text-center"> @Html.DisplayFor(m => i.Type)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.Destination)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.Start_Date)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.End_Date)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => avai)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.TourGuide.Name)</td>
+
+                    <td>
+                        <button type="button" data-toggle="modal" data-target=#@i.ID class=" btn btn-success">
+                            Check Tickets
+                        </button>
+                        <div>
+
+                            @{
+
+
+
+
+                                @Html.Hidden("myVar1", 0);
+                                @Html.Hidden("myVar2", 0);
+                                double platinumprice = i.Price * 6;
+                                double goldprice = i.Price * 4;
+                                double silverprice = i.Price * 2;
+
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+
+
+                                            <div class="modal fade" tabindex="-1" id=@i.ID
+                                                 data-backdrop="static">
+                                                <div class="modal-dialog modal-lg">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <b>Trip to: </b>  @i.Destination / @i.Start_Date.ToShortDateString() => @i.End_Date.ToShortDateString()
+                                                            <button type="button" class="close" data-dismiss="modal">
+                                                                ×
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            <form id="myForm">
+                                                                <div class="col-md-4 float-left">
+                                                                    <div class="funkyradio">
+                                                                        <div class="funkyradio-default">
+                                                                            <input type="radio" name="radio" id="radio1" value="Platinum" />
+                                                                            <label for="radio1">Platinum Ticket</label>
+                                                                            <small>This ticket price will be @platinumprice$ </small>
+                                                                        </div>
+                                                                        <div class="funkyradio-primary">
+                                                                            <input type="radio" name="radio" id="radio2" value="Gold" />
+                                                                            <label for="radio2">Gold Ticket</label>
+                                                                            <small>This ticket price will be @goldprice$ </small>
+                                                                        </div>
+                                                                        <div class="funkyradio-success">
+                                                                            <input type="radio" name="radio" id="radio3" value="Silver" />
+                                                                            <label for="radio3">Silver Ticket</label>
+                                                                            <small>This ticket price will be @silverprice$ </small>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br /><br /><br /><br />
+                                                                
+                                                                
+                                                                
+                                                            </form>
+
+                                                            @{var ticket = new TicketModel
+                                                                {
+                                                                    Seat_Num = 0,
+                                                                    Customer_ID = 0,
+                                                                    Trip_ID = 0,
+                                                                    Type = null
+
+                                                                };
+                                                                <script>
+                                                                function myFunction() {
+                                                                    NumTickets = document.getElementById("TicketNum").value;
+
+                                                                    if (document.getElementById('radio1').checked) {
+                                                                        category = document.getElementById('radio1').value;
+                                                                    }
+                                                                    else if (document.getElementById('radio2').checked){
+                                                                        category = document.getElementById('radio2').value;
+
+                                                                    }
+                                                                    else {
+                                                                        category = document.getElementById('radio3').value;
+
+                                                                    }
+                                                                    $('#myVar1').val(NumTickets);
+                                                                    $('#myVar2').val(category);
+
+                                                                    alert(category);
+
+                                                                    @{
+                                                                       var sLand = Request.Form["combobox"];
+                                                                      }
+                                                                }
+                                                                </script>
+
+
+
+
+
+
+                                                            }
+                                                        </div>
+                                                        <div class="modal-footer">
+
+                                                            
+
+                                                            @Html.ActionLink("Book Tickets", "BookTrip", "Trip", new { customerID = ViewBag.customerID, tripID = i.ID}, new { @class = "btn btn-success" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+
+                    </td>
+
+                </tr>
+    }
+        </tbody>
+    </table>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+
+</script>
+
+<style>
+    .funkyradio div {
+        clear: both;
+        overflow: hidden;
+    }
+
+    .funkyradio label {
+        width: 100%;
+        border-radius: 3px;
+        border: 1px solid #D1D3D4;
+        font-weight: normal;
+    }
+
+    .funkyradio input[type="radio"]:empty,
+    .funkyradio input[type="checkbox"]:empty {
+        display: none;
+    }
+
+        .funkyradio input[type="radio"]:empty ~ label,
+        .funkyradio input[type="checkbox"]:empty ~ label {
+            position: relative;
+            line-height: 2.5em;
+            text-indent: 3.25em;
+            margin-top: 2em;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .funkyradio input[type="radio"]:empty ~ label:before,
+            .funkyradio input[type="checkbox"]:empty ~ label:before {
+                position: absolute;
+                display: block;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                content: '';
+                width: 2.5em;
+                background: #212529;
+                border-radius: 3px 0 0 3px;
+            }
+
+    .funkyradio input[type="radio"]:hover:not(:checked) ~ label,
+    .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+        color: #888;
+    }
+
+        .funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
+        .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+            content: '\2714';
+            text-indent: .9em;
+            color: #C2C2C2;
+        }
+
+    .funkyradio input[type="radio"]:checked ~ label,
+    .funkyradio input[type="checkbox"]:checked ~ label {
+        color: #777;
+    }
+
+        .funkyradio input[type="radio"]:checked ~ label:before,
+        .funkyradio input[type="checkbox"]:checked ~ label:before {
+            content: '\2714';
+            text-indent: .9em;
+            color: #333;
+            background-color: #ccc;
+        }
+
+    .funkyradio input[type="radio"]:focus ~ label:before,
+    .funkyradio input[type="checkbox"]:focus ~ label:before {
+        box-shadow: 0 0 0 3px #999;
+    }
+
+    .funkyradio-default input[type="radio"]:checked ~ label:before,
+    .funkyradio-default input[type="checkbox"]:checked ~ label:before {
+        color: #333;
+        background-color: #e5e4e2;
+    }
+
+    .funkyradio-primary input[type="radio"]:checked ~ label:before,
+    .funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+        color: #FFDF00;
+        background-color: #dabf37;
+    }
+
+    .funkyradio-success input[type="radio"]:checked ~ label:before,
+    .funkyradio-success input[type="checkbox"]:checked ~ label:before {
+        color: #fff;
+        background-color: #C0C0C0;
+    }
+
+    .funkyradio-danger input[type="radio"]:checked ~ label:before,
+    .funkyradio-danger input[type="checkbox"]:checked ~ label:before {
+        color: #fff;
+        background-color: #d9534f;
+    }
+
+    .funkyradio-warning input[type="radio"]:checked ~ label:before,
+    .funkyradio-warning input[type="checkbox"]:checked ~ label:before {
+        color: #fff;
+        background-color: #f0ad4e;
+    }
+
+    .funkyradio-info input[type="radio"]:checked ~ label:before,
+    .funkyradio-info input[type="checkbox"]:checked ~ label:before {
+        color: #fff;
+        background-color: #5bc0de;
+    }
+</style>

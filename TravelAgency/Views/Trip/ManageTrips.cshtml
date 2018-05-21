@@ -1,0 +1,57 @@
+﻿
+@model TravelAgency.Models.ViewModel.TripDataView
+
+@{
+    ViewBag.Title = "Manage Trips";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>List of Trips</h1>
+
+    <table class="table table-striped table-condensed table-hover">
+        <thead class="thead-dark">
+            <tr>
+
+                <th class="text-center">Type</th>
+                <th class="text-center">Destination</th>
+                <th class="text-center">Start Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Booked Tickets</th>
+                <th class="text-center">Supported Languages</th>
+                <th class="text-center">Tour Guide Name</th>
+
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.UserProfile)
+            {
+
+                <tr>
+
+
+                    <td class="text-center"> @Html.DisplayFor(m => i.Type)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.Destination)</td>
+                    <td class="text-center"> @Convert.ToDateTime(i.Start_Date).ToString("dd/MMM/yyyy")</td>
+                    <td class="text-center"> @Convert.ToDateTime(i.End_Date).ToString("dd/MMM/yyyy")</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.Number_Of_Tickets) / @Html.DisplayFor(m => i.Number_Of_Seats)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.Langauge1), @Html.DisplayFor(m => i.Langauge2), @Html.DisplayFor(m => i.Language3)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.TourGuide.Name)</td>
+
+
+                    <td>@Html.ActionLink("Edit", "Edit", "Trip", new { id = i.ID }, new { @class = "btn btn-success" })</td>
+                    <td>@Html.ActionLink("Delete", "Delete", "Trip", new { id = i.ID }, new { @class = "btn btn-danger" })</td>
+                </tr>  
+            }
+        </tbody>
+    </table>
+
+
+</div>
+@Html.ActionLink("New Trip", "AddTrip", "Trip", new { @class = "btn btn-primary" })
+
+
+
+

@@ -1,0 +1,96 @@
+﻿@model TravelAgency.Models.ViewModel.CustomerModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.ID == 0)
+{
+    <h2>New Customer</h2>
+    ViewBag.Title = "Add new Customer";
+}
+else
+{
+    <h2>Edit Customer</h2>
+    ViewBag.Title = "Editing Customer";
+}
+
+@using (@Html.BeginForm("Update", "Customer"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+@if (Model.ID == 0)
+{
+        <div class="form-group">
+            @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BirthDate, "{0:d MMM yyyy}", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+}
+else
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.BirthDate, "{0:d MMM yyyy}", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+}
+        <div class="form-group">
+            @Html.LabelFor(model => model.Lang, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Lang, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Lang, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @if (Model.ID == 0)
+        {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </div>
+        }
+
+        else
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+
+        }
+    </div>
+@Html.HiddenFor(model=> model.ID)
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

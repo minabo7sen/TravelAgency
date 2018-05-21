@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" /> 
+</head>
+
+<body>
+    <nav class="navbar navbar-expand bg-dark navbar-dark fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"></button>
+            @Html.ActionLink("Travel Agency", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
+
+                
+                    <div class=" dropdown">
+                        <button onclick="myFunction()" class="dropbtn">Customer</button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="~/Customer/SignUp">Add new Customer</a>
+                            <a href="~/Customer/ManageCustomers">Check list of Customers</a>
+                        </div>
+                    </div>
+                <div class=" dropdown btn-dark">
+                    <button onclick="myFunction()" class="dropbtn">Tour guide</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="~/TourGuide/AddTourGuide">Add new tour guide</a>
+                        <a href="~/TourGuide/ManageTourGuide">Check list of tour guides</a>
+                    </div>
+                </div>
+                <div class=" dropdown btn-dark">
+                    <button onclick="myFunction()" class="dropbtn">Trips</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="~/Trip/AddTrip">Add new trip</a>
+                        <a href="~/Trip/ManageTrips">Check list of trips</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </nav>
+
+    <br /><br />
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year</p>
+        </footer>
+    </div>
+
+</body>
+</html>
+
+<style>
+    /* Style The Dropdown Button */
+    .dropbtn {
+        background-color: transparent;
+        color: white;
+        padding: 16px;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+
+            /* Change color of dropdown links on hover */
+            .dropdown-content a:hover {
+                background-color: white
+            }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {
+        background-color: black;
+    }
+</style>
+    <script src="~/Scripts/bootstrap.min.js"></script>

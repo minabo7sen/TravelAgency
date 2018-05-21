@@ -1,0 +1,153 @@
+﻿@model TravelAgency.Models.ViewModel.TourGuideModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.ID == 0)
+{
+    <h2>New Tour Guide</h2>
+    ViewBag.Title = "Add new TourGuide";
+}
+else
+{
+    <h2>Edit Tour Guide</h2>
+    ViewBag.Title = "Editing TourGuide";
+}
+
+@using (Html.BeginForm("Update","TourGuide")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="float-left" style="width: 50%">
+
+            <div class="form-group" style="width: 200%">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                <small class="form-text text-muted">Please enter lastname only</small>
+                </div>
+            </div>
+
+            <div class="form-group" style="width: 200%">
+                @Html.LabelFor(model => model.PhoneNO, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PhoneNO, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PhoneNO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+           @if (Model.ID ==0)
+            {
+            <div class="form-group" style="width: 200%">
+                @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            }
+            else
+            {
+            <div class="form-group" style="width: 200%">
+                @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.BirthDate, "{0:d/MMM/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            }
+        </div>
+        
+        <div class="float-right" style="width: 50%">
+            
+            <div class="form-group" style="width:110%">
+                @Html.LabelFor(model => model.Language1, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Language1,
+                  new List<SelectListItem> {
+                       new SelectListItem { Value = null , Text =null},
+                       new SelectListItem { Value = "Arabic" , Text = "Arabic" },
+                       new SelectListItem { Value = "Chinese" , Text = "Chinese" },
+                       new SelectListItem { Value = "Deutsch" , Text = "Deutsch" },
+                       new SelectListItem { Value = "English" , Text = "English" },
+                       new SelectListItem { Value = "French" , Text = "French" },
+                       new SelectListItem { Value = "Spanish" , Text = "Spanish" }
+                    },
+                  new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Language1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" style="width:200%">
+                @Html.LabelFor(model => model.Language2, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Language2,
+                  new List<SelectListItem> {
+                       new SelectListItem { Value = null , Text =null},
+                       new SelectListItem { Value = "Arabic" , Text = "Arabic" },
+                       new SelectListItem { Value = "Chinese" , Text = "Chinese" },
+                       new SelectListItem { Value = "Deutsch" , Text = "Deutsch" },
+                       new SelectListItem { Value = "English" , Text = "English" },
+                       new SelectListItem { Value = "French" , Text = "French" },
+                       new SelectListItem { Value = "Spanish" , Text = "Spanish" }
+                    },
+                  new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Language2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" style="width:200%">
+                @Html.LabelFor(model => model.Language3, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Language3,
+                  new List<SelectListItem> {
+                       new SelectListItem { Value = null , Text =null},
+                       new SelectListItem { Value = "Arabic" , Text = "Arabic" },
+                       new SelectListItem { Value = "Chinese" , Text = "Chinese" },
+                       new SelectListItem { Value = "Deutsch" , Text = "Deutsch" },
+                       new SelectListItem { Value = "English" , Text = "English" },
+                       new SelectListItem { Value = "French" , Text = "French" },
+                       new SelectListItem { Value = "Spanish" , Text = "Spanish" }
+                    },
+                  new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Language3, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            </div>
+        @if (Model.ID == 0)
+        {
+            <div class="form-group float-left" style="width:100%">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </div>
+            </div>
+        }
+
+        else
+        {
+            <div class="form-group float-left" style="width:100%">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+
+        }
+        </div>
+
+        
+
+        @Html.HiddenFor(model => model.ID)
+}
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

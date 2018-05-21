@@ -1,0 +1,190 @@
+﻿@model TravelAgency.Models.DB.Trip
+@using TravelAgency.Models.DB
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.ID == 0)
+{
+    <h2>New Trip</h2>
+    ViewBag.Title = "Add new Trip";
+}
+else
+{
+    <h2>Edit Existing Trip</h2>
+    ViewBag.Title = "Editing Trip";
+}
+
+
+
+@using (Html.BeginForm("Update", "Trip")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        <hr />
+        
+        <div class="float-right" style="width:50%">
+            <div class="form-group" style="width:110%">
+                @Html.LabelFor(model => model.Langauge1, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Langauge1,
+                  new List<SelectListItem> {
+                       new SelectListItem { Value = null , Text =null},
+                       new SelectListItem { Value = "Arabic" , Text = "Arabic" },
+                       new SelectListItem { Value = "Chinese" , Text = "Chinese" },
+                       new SelectListItem { Value = "Deutsch" , Text = "Deutsch" },
+                       new SelectListItem { Value = "English" , Text = "English" },
+                       new SelectListItem { Value = "French" , Text = "French" },
+                       new SelectListItem { Value = "Spanish" , Text = "Spanish" }
+                    },
+                  new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Langauge1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            
+            <div class="form-group" style="width:200%">
+                @Html.LabelFor(model => model.Langauge2, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Langauge2,
+                  new List<SelectListItem> {
+                       new SelectListItem { Value = null , Text =null},
+                       new SelectListItem { Value = "Arabic" , Text = "Arabic" },
+                       new SelectListItem { Value = "Chinese" , Text = "Chinese" },
+                       new SelectListItem { Value = "Deutsch" , Text = "Deutsch" },
+                       new SelectListItem { Value = "English" , Text = "English" },
+                       new SelectListItem { Value = "French" , Text = "French" },
+                       new SelectListItem { Value = "Spanish" , Text = "Spanish" }
+                    },
+                  new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Langauge2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" style="width:200%">
+                @Html.LabelFor(model => model.Language3, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Language3,
+                  new List<SelectListItem> {
+                       new SelectListItem { Value = null , Text =null},
+                       new SelectListItem { Value = "Arabic" , Text = "Arabic" },
+                       new SelectListItem { Value = "Chinese" , Text = "Chinese" },
+                       new SelectListItem { Value = "Deutsch" , Text = "Deutsch" },
+                       new SelectListItem { Value = "English" , Text = "English" },
+                       new SelectListItem { Value = "French" , Text = "French" },
+                       new SelectListItem { Value = "Spanish" , Text = "Spanish" }
+                    },
+                  new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Language3, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br /> 
+            <div class="form-group" style="width:200%">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    <small id="emailHelp" class="form-text text-muted">Platinum Ticket Price = Base Price x 6</small>
+                    <small id="emailHelp" class="form-text text-muted">Gold Ticket Price = Base Price x 4</small>
+                    <small id="emailHelp" class="form-text text-muted">Silver Ticket Price = Base Price x 2</small>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Type,
+                  new List<SelectListItem> {
+                       new SelectListItem { Value = "General" , Text = "General" },
+                       new SelectListItem { Value = "Family" , Text = "Family" },
+                       new SelectListItem { Value = "Couple" , Text = "Couple" }
+                    },
+                  new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+@if (Model.ID == 0)
+{
+        <div class="form-group">
+            @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+                <span style="color:red">@ViewBag.DateError</span> 
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
+                <span style="color:red">@ViewBag.DateError</span> 
+            </div>
+        </div>
+}
+
+else
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Start_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Start_Date, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Start_Date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.End_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.End_Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.End_Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+}
+        <div class="form-group">
+            @Html.LabelFor(model => model.Number_Of_Seats, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Number_Of_Seats, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Number_Of_Seats, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Destination, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Destination, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Destination, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+
+        @if (Model.ID == 0)
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </div>
+            </div>
+        }
+
+        else
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+
+        }
+        @Html.HiddenFor(model => model.ID)
+    </div>
+}
+
+

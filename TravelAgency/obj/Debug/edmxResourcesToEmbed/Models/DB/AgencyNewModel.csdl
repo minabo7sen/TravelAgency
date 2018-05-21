@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AgencyDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Phone_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Date_Of_Birth" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Language" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Number_Of_Trips" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="Seat_Number" />
+    </Key>
+    <Property Name="Seat_Number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Customer_ID" Type="Int32" Nullable="false" />
+    <Property Name="Trip_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TourGuide" Relationship="Self.FK__Ticket__Customer__49C3F6B7" FromRole="Ticket" ToRole="TourGuide" />
+    <NavigationProperty Name="Trip" Relationship="Self.FK__Ticket__Trip_ID__4AB81AF0" FromRole="Ticket" ToRole="Trip" />
+  </EntityType>
+  <EntityType Name="TourGuide">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Phone_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Date_Of_Birth" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Language1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Language2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Language3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Number_Of_Trips" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tickets" Relationship="Self.FK__Ticket__Customer__49C3F6B7" FromRole="TourGuide" ToRole="Ticket" />
+    <NavigationProperty Name="Trips" Relationship="Self.FK__Trip__Tour_Guide__440B1D61" FromRole="TourGuide" ToRole="Trip" />
+  </EntityType>
+  <EntityType Name="Trip">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Number_Of_Seats" Type="Int32" Nullable="false" />
+    <Property Name="Tour_Guide_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tickets" Relationship="Self.FK__Ticket__Trip_ID__4AB81AF0" FromRole="Trip" ToRole="Ticket" />
+    <NavigationProperty Name="TourGuide" Relationship="Self.FK__Trip__Tour_Guide__440B1D61" FromRole="Trip" ToRole="TourGuide" />
+  </EntityType>
+  <Association Name="FK__Ticket__Customer__49C3F6B7">
+    <End Role="TourGuide" Type="Self.TourGuide" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TourGuide">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="Customer_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ticket__Trip_ID__4AB81AF0">
+    <End Role="Trip" Type="Self.Trip" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trip">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="Trip_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Trip__Tour_Guide__440B1D61">
+    <End Role="TourGuide" Type="Self.TourGuide" Multiplicity="1" />
+    <End Role="Trip" Type="Self.Trip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TourGuide">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Trip">
+        <PropertyRef Name="Tour_Guide_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AgencyDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+    <EntitySet Name="TourGuides" EntityType="Self.TourGuide" />
+    <EntitySet Name="Trips" EntityType="Self.Trip" />
+    <AssociationSet Name="FK__Ticket__Customer__49C3F6B7" Association="Self.FK__Ticket__Customer__49C3F6B7">
+      <End Role="TourGuide" EntitySet="TourGuides" />
+      <End Role="Ticket" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ticket__Trip_ID__4AB81AF0" Association="Self.FK__Ticket__Trip_ID__4AB81AF0">
+      <End Role="Trip" EntitySet="Trips" />
+      <End Role="Ticket" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Trip__Tour_Guide__440B1D61" Association="Self.FK__Trip__Tour_Guide__440B1D61">
+      <End Role="TourGuide" EntitySet="TourGuides" />
+      <End Role="Trip" EntitySet="Trips" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

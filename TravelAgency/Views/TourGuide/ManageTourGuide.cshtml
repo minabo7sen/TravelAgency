@@ -1,0 +1,57 @@
+﻿
+@model TravelAgency.Models.ViewModel.TourGuideDataView
+
+@{
+    ViewBag.Title = "Manage Tour Guides";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h1>List of Tour Guides</h1>
+
+    <table class="table table-striped table-condensed table-hover">
+        <thead class="thead-dark">
+            <tr>
+
+                <th class="text-center">Name</th>
+                <th class="text-center">Phone Number</th>
+                <th class="text-center">Birth Date</th>
+                <th class="text-center">Languages</th>
+                <th class="text-center">Number of assigned trips</th>
+                <th class="text-center">Salary</th>
+
+
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model.UserProfile)
+            {
+
+                <tr>
+                    @{ 
+                        double salary = i.Num_Trips * 100;
+                    }
+
+                    <td class="text-center"> @Html.DisplayFor(m => i.Name)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.PhoneNO)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.BirthDate)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.Language1), @Html.DisplayFor(m => i.Language2), @Html.DisplayFor(m => i.Language3)</td>
+                    <td class="text-center"> @Html.DisplayFor(m => i.Num_Trips)</td>
+                    <td class="text-center"> @salary $</td>
+
+
+
+                    <td>@Html.ActionLink("Edit", "Edit", "TourGuide", new { id = i.ID }, new { @class = "btn btn-success" })</td>
+                    <td>@Html.ActionLink("Delete", "Delete", "TourGuide", new { id = i.ID }, new { @class = "btn btn-danger" })</td>
+                </tr>  
+            }
+        </tbody>
+    </table>
+
+
+</div>
+@Html.ActionLink("New Tour Guide", "AddTourGuide", "TourGuide", new { @class = "btn btn-primary" })
+
+

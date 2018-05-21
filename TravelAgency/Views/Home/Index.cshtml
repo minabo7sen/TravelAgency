@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Travel Agency";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE HTML>
+<br />
+<br />
+<h2 class="text-center"><b>Infographic of Agency's trips</b></h2>
+<br />
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['geochart'],
+            // Note: you will need to get a mapsApiKey for your project.
+            // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+            'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+        });
+        google.charts.setOnLoadCallback(drawRegionsMap);
+
+        function drawRegionsMap() {
+            var data = google.visualization.arrayToDataTable([
+                ['Country', 'Number of Trips'],
+                ['Germany', 160],
+                ['United States', 190],
+                ['Brazil', 230],
+                ['Canada', 200],
+                ['France', 300],
+                ['RU', 210],
+                ['Egypt', 210],
+                ['United Kingdom', 210],
+                ['China', 280],
+                ['Japan', 150],
+                ['South Africa', 190],
+                ['Ghana', 250],
+                ['Turkey', 260],
+
+
+            ]);
+
+            var options = {
+                colorAxis: { colors: ['#17a2b8'] },
+                defaultColor: '#f5f5f5',};
+
+            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+    <div id="regions_div" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
+<br /><br />
+
+<div class="float-right text-center"style="width:33%">
+    @Html.ActionLink("Add new trip", "AddTrip", "Trip", null, new { @class = "btn btn-warning" })
+    <br /><br />
+    @Html.ActionLink("Manage existing trips", "ManageTrips", "Trip", null, new { @class = "btn btn-warning" })
+    <br /><br />
+</div>
+<div class="float-right text-center" style="width:33%">
+    @Html.ActionLink("Add new tour guide", "AddTourGuide", "TourGuide", null, new { @class = "btn btn-danger" })
+    <br /><br />
+    @Html.ActionLink("Display list of current tour guides", "ManageTourGuide", "TourGuide", null, new { @class = "btn btn-danger" })
+    <br /><br />
+</div>
+<div class="text-center">
+    @Html.ActionLink("Add new customer", "SignUp", "Customer", null, new { @class = "btn btn-info" })
+    <br /><br />
+    @Html.ActionLink("Display list of current customers", "ManageCustomers", "Customer", null, new { @class = "btn btn-info" })
+</div>
+
+
+
+
+<div class="text-center">
+    
+    <br /><br /><br /><br />
+    @Html.ActionLink("Assign tourguides automatically", "Assign", "Home", null, new { @class = "btn btn-dark" })
+</div>
+
+
+
+
+
+
+
+
+
+
+
